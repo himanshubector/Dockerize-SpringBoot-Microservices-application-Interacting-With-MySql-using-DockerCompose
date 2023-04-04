@@ -1,0 +1,54 @@
+
+version: "3.7"
+
+services:
+
+  customerservice:
+    image: customerser-app-image
+    ports:
+      - "8080:8080"
+    networks:
+      - customer-service-mysql
+    depends_on:
+      - mysqlserver
+    container_name: customer_ser_container
+#    volumes:
+#      - /data/spring-boot-app
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/my_new_db
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: jaiganeshji
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: true
+    build:
+      context: .  # ./user-service -> This means the user-service is nested inside a folder whereas . means the current directory/folder   # context means the directory to find the docker file
+      # can be . or ./ or ./user-service
+      # dockerfile: Dockerfile
+
+
+  mysqlserver:
+    platform: linux/x86_64
+    #platform: linux/amd64
+    container_name: mysqldb_ser_container
+    image: mysql:8.0                  # mysql:8.0 or mysql:latest
+    hostname: mysqldb
+    networks:
+      - customer-service-mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=jaiganeshji
+      - MYSQL_DATABASE=my_new_db
+     # - MYSQL_USER=root
+#    volumes:
+#      - /data/mysql
+
+
+networks:
+  customer-service-mysql:
+
+
+
+# In this example, the hostname parameter for the mysqldb service is set to mysql-server. This means that the hostname of the MySQL server
+# will be mysql-server instead of the default value of the service name, which is mysqldb.
+

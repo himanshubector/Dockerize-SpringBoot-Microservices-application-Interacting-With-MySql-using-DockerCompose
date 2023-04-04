@@ -6,9 +6,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
-public class CustomerServiceApplication {
-
-	public static void main(String[] args) {
+public class CustomerServiceApplication
+{
+	public static void main(String[] args)
+	{
 		SpringApplication.run(CustomerServiceApplication.class, args);
 	}
 
@@ -17,5 +18,6 @@ public class CustomerServiceApplication {
 	{
 		return new RestTemplate();
 	}
+
 
 }
